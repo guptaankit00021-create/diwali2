@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Diwali | Shobhit University</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(
+        ellipse at 50% 45%,
+        #251044, #10091f 48%, #03030b
+    );
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#fireworksCanvas, #sparkCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#fireworksCanvas { z-index: 1; }
+#sparkCanvas { z-index: 4; }
+
+.aurora {
+    position: fixed;
+    inset: -20%;
+    z-index: 0;
+    background:
+        radial-gradient(ellipse at 20% 25%, #ff8c0022, transparent 35%),
+        radial-gradient(ellipse at 80% 30%, #8b2cff25, transparent 38%),
+        radial-gradient(ellipse at 50% 85%, #ffcc4420, transparent 35%);
+    animation: auroraMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes auroraMove {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1.15) rotate(5deg); }
+}
+
+/* UNIVERSITY LOGO */
+
+.logo {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(340px, 78vw);
+    padding: 7px;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 0 18px gold, 0 0 45px #ff8c0088;
+    z-index: 5;
+    opacity: 0;
+    animation: logoIn 1.6s .2s ease-out forwards,
+               logoGlow 2.5s 2s infinite alternate;
+}
+
+.logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 9px;
+}
+
+@keyframes logoIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -35px) scale(.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+
+@keyframes logoGlow {
+    from { box-shadow: 0 0 15px gold; }
+    to { box-shadow: 0 0 28px #fff2a8, 0 0 55px #ff8c00; }
+}
+
+/* MAIN CONTENT */
+
+.container {
+    position: absolute;
+    z-index: 3;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    pointer-events: none;
+}
+
+/* HAPPY DIWALI */
+
+h1 {
+    font-size: clamp(38px, 8vw, 92px);
+    font-weight: 900;
+    letter-spacing: 2px;
+
+    background: linear-gradient(
+        90deg,
+        #ff8c00,
+        #fff4b0,
+        #ffd700,
+        #fff,
+        #ff8c00
+    );
+
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    filter: drop-shadow(0 0 12px #ff9d00);
+
+    opacity: 0;
+
+    animation:
+        titleIn 1.4s 1s ease-out forwards,
+        goldShine 4s 2.4s linear infinite,
+        titlePulse 2s 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes titleIn {
+    from {
+        opacity: 0;
+        transform: scale(.45) translateY(35px);
+        letter-spacing: 18px;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        letter-spacing: 2px;
+    }
+}
+
+@keyframes goldShine {
+    to { background-position: 300% center; }
+}
+
+@keyframes titlePulse {
+    from { filter: drop-shadow(0 0 8px orange); }
+    to { filter: drop-shadow(0 0 28px gold); }
+}
+
+/* UNIVERSITY NAME */
+
+h2 {
+    margin-top: 17px;
+    color: #ffe58a;
+    font-size: clamp(23px, 4.5vw, 46px);
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #ffb300, 0 0 28px #ff8c00;
+    opacity: 0;
+    animation: riseIn 1.2s 1.7s ease-out forwards;
+}
+
+/* DEPARTMENT */
+
+.department {
+    margin-top: 13px;
+    color: #8ffaff;
+    font-size: clamp(16px, 3vw, 29px);
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 12px #00d9ff;
+    opacity: 0;
+
+    animation:
+        riseIn 1.2s 2.1s ease-out forwards,
+        cyanPulse 2s 3.3s infinite alternate;
+}
+
+/* MESSAGE */
+
+.message {
+    margin: 20px auto 0;
+    max-width: 850px;
+    color: #fff8e5;
+    font-size: clamp(14px, 2.2vw, 21px);
+    line-height: 1.5;
+    text-shadow: 0 0 12px #ff9d00;
+    opacity: 0;
+    animation: riseIn 1.2s 2.5s ease-out forwards;
+}
+
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cyanPulse {
+    from { text-shadow: 0 0 7px #00d9ff; }
+    to { text-shadow: 0 0 22px cyan, 0 0 35px #008cff; }
+}
+
+/* REALISTIC DIYAS */
+
+.diyas {
+    position: absolute;
+    z-index: 5;
+    bottom: clamp(35px, 8vh, 85px);
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.diya {
+    position: relative;
+    width: clamp(42px, 6vw, 72px);
+    height: 35px;
+}
+
+.diya .bowl {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 24px;
+    background: linear-gradient(
+        #ffdc72, #c34a08 65%, #6b1b04
+    );
+    border-radius: 8px 8px 50% 50%;
+    box-shadow: 0 5px 18px #ff7600aa,
+                inset 0 3px 5px #fff5a0;
+}
+
+.diya .wick {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 19px;
+    width: 4px;
+    height: 12px;
+    background: #3a1708;
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+
+.diya .flame {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 27px;
+    width: 17px;
+    height: 28px;
+    transform: translateX(-50%);
+    transform-origin: 50% 100%;
+
+    background: radial-gradient(
+        ellipse at 50% 75%,
+        #fff 0 12%,
+        #fff7a1 25%,
+        #ffb000 55%,
+        #ff4b00 78%,
+        transparent 80%
+    );
+
+    border-radius: 50% 50% 45% 45%;
+    filter: drop-shadow(0 0 9px #ffae00);
+
+    animation: flameFlicker .16s infinite alternate;
+}
+
+.diya:nth-child(even) .flame {
+    animation-duration: .22s;
+}
+
+@keyframes flameFlicker {
+    from {
+        transform: translateX(-50%) rotate(-5deg) scale(.92,1);
+    }
+    to {
+        transform: translateX(-50%) rotate(5deg) scale(1.08,1.12);
+    }
+}
+
+.diya:nth-child(2n) {
+    transform: translateY(9px) scale(.9);
+}
+
+/* FLOATING SPARKLES */
+
+.sparkle {
+    position: fixed;
+    z-index: 2;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #fff4b0;
+    box-shadow: 0 0 8px 2px #ffc400;
+    pointer-events: none;
+    animation: twinkle var(--dur) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: .1;
+        transform: scale(.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.7);
+    }
+}
+
+.footer {
+    position: absolute;
+    z-index: 5;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #ffe8a3;
+    font-size: 11px;
+    letter-spacing: 1px;
+    opacity: .7;
+}
+
+@media(max-height:650px) {
+    .logo {
+        top: 10px;
+        width: min(230px, 55vw);
+    }
+
+    .container { top: 48%; }
+    .diyas { bottom: 34px; }
+    .message { margin-top: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="aurora"></div>
+
+<canvas id="fireworksCanvas"></canvas>
+<canvas id="sparkCanvas"></canvas>
+
+<!-- UNIVERSITY LOGO -->
+<div class="logo">
+    <img src="./shobhit-logo.jpg.jpeg"
+         alt="Shobhit University Logo">
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="container">
+
+    <h1>✨ HAPPY DIWALI ✨</h1>
+
+    <h2>Shobhit University</h2>
+
+    <h3 class="department">
+        School of Computational Sciences and Engineering
+    </h3>
+
+    <p class="message">
+        May your life shine with happiness and prosperity!
+    </p>
+
+</main>
+
+<!-- DIYAS -->
+<div class="diyas">
+
+    <div class="diya">
+        <div class="wick"></div>
+        <div class="flame"></div>
+        <div class="bowl"></div>
+    </div>
+
+    <div class="diya">
+        <div class="wick"></div>
+        <div class="flame"></div>
+        <div class="bowl"></div>
+    </div>
+
+    <div class="diya">
+        <div class="wick"></div>
+        <div class="flame"></div>
+        <div class="bowl"></div>
+    </div>
+
+    <div class="diya">
+        <div class="wick"></div>
+        <div class="flame"></div>
+        <div class="bowl"></div>
+    </div>
+
+    <div class="diya">
+        <div class="wick"></div>
+        <div class="flame"></div>
+        <div class="bowl"></div>
+    </div>
+
+</div>
+
+<div class="footer">
+    WISHING YOU A BRIGHT AND JOYFUL DIWALI
+</div>
+
+<script>
+
+/* CANVAS SETUP */
+
+const fireCanvas = document.getElementById("fireworksCanvas");
+const fctx = fireCanvas.getContext("2d");
+
+const sparkCanvas = document.getElementById("sparkCanvas");
+const sctx = sparkCanvas.getContext("2d");
+
+let W = innerWidth;
+let H = innerHeight;
+
+let fireworks = [];
+let groundSparks = [];
+
+const dpr = Math.min(devicePixelRatio || 1, 2);
+
+function resize() {
+
+    W = innerWidth;
+    H = innerHeight;
+
+    for (const c of [fireCanvas, sparkCanvas]) {
+
+        c.width = W * dpr;
+        c.height = H * dpr;
+
+        c.style.width = W + "px";
+        c.style.height = H + "px";
+
+        c.getContext("2d").setTransform(
+            dpr, 0, 0, dpr, 0, 0
+        );
+    }
+}
+
+addEventListener("resize", resize);
+resize();
+
+/* FLOATING STARS */
+
+for (let i = 0; i < 65; i++) {
+
+    const star = document.createElement("i");
+
+    star.className = "sparkle";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    star.style.setProperty(
+        "--dur",
+        (1.2 + Math.random() * 3) + "s"
+    );
+
+    star.style.animationDelay =
+        -Math.random() * 4 + "s";
+
+    document.body.appendChild(star);
+}
+
+/* AUTOMATIC SOUND SYSTEM */
+
+let audioCtx = null;
+let soundReady = false;
+
+function startAudio() {
+
+    if (soundReady) return;
+
+    try {
+
+        audioCtx = new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+        audioCtx.resume();
+
+        soundReady = true;
+
+        setInterval(() => {
+
+            if (Math.random() < .72) {
+                playBoom(Math.random() < .35);
+            }
+
+        }, 1900);
+
+        const hint = document.getElementById("soundHint");
+
+        if (hint) hint.remove();
+
+    } catch (e) {
+
+        console.log("Audio unavailable", e);
+
+    }
+}
+
+/* BROWSER SOUND ACTIVATION */
+
+addEventListener("pointerdown", startAudio, {
+    once: true
+});
+
+addEventListener("keydown", startAudio, {
+    once: true
+});
+
+/* CRACKLING SOUND */
+
+function noiseBurst(
+    duration = .28,
+    volume = .16,
+    filterFreq = 1200
+) {
+
+    if (!soundReady || !audioCtx) return;
+
+    const now = audioCtx.currentTime;
+
+    const length = Math.floor(
+        audioCtx.sampleRate * duration
+    );
+
+    const buffer = audioCtx.createBuffer(
+        1, length, audioCtx.sampleRate
+    );
+
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < length; i++) {
+
+        data[i] =
+            (Math.random() * 2 - 1) *
+            (1 - i / length);
+
+    }
+
+    const src = audioCtx.createBufferSource();
+    const filter = audioCtx.createBiquadFilter();
+    const gain = audioCtx.createGain();
+
+    src.buffer = buffer;
+
+    filter.type = "lowpass";
+    filter.frequency.value = filterFreq;
+
+    gain.gain.setValueAtTime(volume, now);
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001, now + duration
+    );
+
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    src.start(now);
+    src.stop(now + duration);
+}
+
+/* FIREWORK SOUND */
+
+function playBoom(big = false) {
+
+    if (!soundReady || !audioCtx) return;
+
+    const now = audioCtx.currentTime;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+
+    osc.frequency.setValueAtTime(
+        big ? 95 : 145, now
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+        28, now + (big ? .65 : .38)
+    );
+
+    gain.gain.setValueAtTime(
+        big ? .32 : .2, now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001, now + (big ? .7 : .42)
+    );
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start(now);
+    osc.stop(now + (big ? .72 : .44));
+
+    noiseBurst(
+        big ? .55 : .28,
+        big ? .2 : .12,
+        big ? 650 : 1600
+    );
+
+    if (big) {
+
+        setTimeout(() => {
+            noiseBurst(.22, .09, 2400);
+        }, 180);
+
+    }
+}
+
+/* PARTICLE CLASS */
+
+class Particle {
+
+    constructor(
+        x, y, color, angle, speed, kind = "normal"
+    ) {
+
+        this.x = x;
+        this.y = y;
+        this.color = color;
+
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+
+        this.alpha = 1;
+        this.size = Math.random() * 2 + 1;
+
+        this.gravity =
+            kind === "spark" ? .035 : .055;
+
+        this.decay =
+            Math.random() * .012 + .009;
+
+        this.kind = kind;
+    }
+
+    update() {
+
+        this.vx *= .99;
+        this.vy = this.vy * .99 + this.gravity;
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.alpha -= this.decay;
+    }
+
+    draw(ctx) {
+
+        ctx.save();
+
+        ctx.globalAlpha = Math.max(0, this.alpha);
+
+        ctx.shadowBlur =
+            this.kind === "spark" ? 8 : 14;
+
+        ctx.shadowColor = this.color;
+
+        ctx.fillStyle = this.color;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.restore();
+    }
+}
+
+/* FIREWORK CLASS */
+
+class Firework {
+
+    constructor() {
+
+        this.x = Math.random() * W;
+        this.y = H + 5;
+
+        this.targetY =
+            H * (.18 + Math.random() * .42);
+
+        this.vy = -(6 + Math.random() * 3);
+
+        this.color =
+            `hsl(${Math.random() * 360},100%,65%)`;
+
+        this.particles = [];
+
+        this.exploded = false;
+
+        this.big = Math.random() < .22;
+    }
+
+    update() {
+
+        if (!this.exploded) {
+
+            this.y += this.vy;
+            this.vy += .035;
+
+            if (
+                this.y <= this.targetY ||
+                this.vy > -.5
+            ) {
+
+                this.explode();
+
+            }
+
+        } else {
+
+            for (const p of this.particles) {
+                p.update();
+            }
+
+            this.particles =
+                this.particles.filter(
+                    p => p.alpha > 0
+                );
+
+        }
+    }
+
+    explode() {
+
+        this.exploded = true;
+
+        const count = this.big ? 155 : 95;
+
+        const hue = Math.random() * 360;
+
+        for (let i = 0; i < count; i++) {
+
+            const angle =
+                Math.PI * 2 * i / count;
+
+            const speed =
+                (this.big ? 2.2 : 1.6) +
+                Math.random() * (this.big ? 5.2 : 4.2);
+
+            this.particles.push(
+
+                new Particle(
+                    this.x,
+                    this.y,
+                    `hsl(${hue + Math.random() * 35},100%,${55 + Math.random() * 25}%)`,
+                    angle,
+                    speed
+                )
+
+            );
+
+        }
+
+        if (Math.random() < .6) {
+            playBoom(this.big);
+        }
+    }
+
+    draw(ctx) {
+
+        if (!this.exploded) {
+
+            ctx.save();
+
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = 2;
+
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = this.color;
+
+            ctx.beginPath();
+
+            ctx.moveTo(this.x, this.y + 18);
+            ctx.lineTo(this.x, this.y);
+
+            ctx.stroke();
+
+            ctx.restore();
+
+        }
+
+        for (const p of this.particles) {
+            p.draw(ctx);
+        }
+    }
+}
+
+/* CONTINUOUS FULJHADI SPARKS */
+
+function addGroundSparks() {
+
+    const x = W * (.12 + Math.random() * .76);
+    const y = H - 12;
+
+    for (let i = 0; i < 3; i++) {
+
+        const angle =
+            -Math.PI / 2 +
+            (Math.random() - .5) * 1.1;
+
+        groundSparks.push(
+
+            new Particle(
+                x,
+                y,
+                `hsl(${35 + Math.random() * 30},100%,${55 + Math.random() * 35}%)`,
+                angle,
+                2 + Math.random() * 5,
+                "spark"
+            )
+
+        );
+
+    }
+}
+
+/* MAIN ANIMATION */
+
+let lastSpark = 0;
+let lastFirework = 0;
+
+function animate(now = 0) {
+
+    fctx.clearRect(0, 0, W, H);
+    sctx.clearRect(0, 0, W, H);
+
+    if (
+        now - lastFirework >
+        (550 + Math.random() * 650) &&
+        fireworks.length < 15
+    ) {
+
+        fireworks.push(new Firework());
+
+        lastFirework = now;
+
+    }
+
+    for (const fw of fireworks) {
+
+        fw.update();
+        fw.draw(fctx);
+
+    }
+
+    fireworks = fireworks.filter(
+        fw => !fw.exploded || fw.particles.length
+    );
+
+    if (now - lastSpark > 35) {
+
+        addGroundSparks();
+        lastSpark = now;
+
+    }
+
+    for (const p of groundSparks) {
+
+        p.update();
+        p.draw(sctx);
+
+    }
+
+    groundSparks = groundSparks.filter(
+        p => p.alpha > 0 && p.y < H + 15
+    );
+
+    requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+
+/* SOUND HINT */
+
+const hint = document.createElement("div");
+
+hint.id = "soundHint";
+
+hint.textContent =
+    "Tap or click once to enable fireworks sound";
+
+hint.style.cssText = `
+    position:fixed;
+    z-index:10;
+    bottom:38px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:8px 13px;
+    border:1px solid #ffd45a88;
+    border-radius:20px;
+    background:#10091fbb;
+    color:#ffe8a3;
+    font-size:12px;
+    text-align:center;
+    white-space:nowrap;
+    pointer-events:none;
+    animation:hintFade 6s 4s forwards;
+`;
+
+document.head.insertAdjacentHTML(
+    "beforeend",
+    `<style>
+        @keyframes hintFade {
+            to { opacity:0; }
+        }
+    </style>`
+);
+
+document.body.appendChild(hint);
+
+</script>
+
+</body>
+</html>
